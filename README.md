@@ -44,11 +44,49 @@ Everything is static, so any host works. The whole site is `index.html`,
 
 - **GitHub Pages** — push the folder to a repo, then *Settings → Pages → Deploy from
   branch → main / (root)*.
+- **Render** — *New → Static Site*, connect the repo, leave the build command empty
+  and set the publish directory to `.`. Or use the included `render.yaml` blueprint
+  (*New → Blueprint*). See [Deploy on Render](#deploy-on-render) below.
 - **Netlify** — drag the folder onto <https://app.netlify.com/drop>.
 - **Vercel** — `npx vercel` in this folder (framework preset: *Other*).
 - **Cloudflare Pages** — connect the repo, leave the build command empty, output
   directory `/`.
 - **Anything else** — copy the files to any web server. No SPA rewrites needed.
+
+### Deploy on Render
+
+Render builds from a Git repo, so the project must be on GitHub, GitLab or Bitbucket
+first. This repo is already on GitHub at
+`https://github.com/Simon-01358/REA-DinoRunner`.
+
+**Option A — dashboard**
+
+1. In the [Render Dashboard](https://dashboard.render.com/), click **New → Static
+   Site**.
+2. Connect GitHub and pick the `REA-DinoRunner` repo (grant Render access to it if
+   asked).
+3. Fill in:
+   - **Name**: `dino-runner` (or anything you like — it becomes the `onrender.com`
+     subdomain)
+   - **Branch**: `main`
+   - **Build Command**: leave **empty**
+   - **Publish Directory**: `.`
+4. Click **Create Static Site**. The first deploy takes a few seconds.
+5. Your game is live at `https://<name>.onrender.com`.
+
+**Option B — blueprint (this repo's `render.yaml`)**
+
+1. Push the repo with `render.yaml` at the root.
+2. In Render, click **New → Blueprint**, connect the repo, and apply the plan.
+3. Render creates the static site with the same settings as above.
+
+Every push to `main` redeploys automatically. Static sites are free (bandwidth and
+build minutes count against the workspace allowance), get automatic HTTPS, and can
+use a custom domain under **Settings → Custom Domains** (add a `CNAME` to
+`<name>.onrender.com`).
+
+No rewrite rules or environment variables are needed. The site is plain files and
+`localStorage` works normally.
 
 ## How it works
 

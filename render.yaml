@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: dino-runner
+    runtime: static
+    branch: main
+    # No build step: the repo root is already the finished site.
+    staticPublishPath: .
